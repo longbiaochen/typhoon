@@ -9,7 +9,7 @@ import java.sql.*;
 long NORTH = 24584617, SOUTH = 24398989, EAST = 118234385, WEST = 118030402; //东西南北界线
 long WIDTH = EAST - WEST, HEIGHT = NORTH - SOUTH; //经纬宽度、长度，用于比例缩小图像
 int SW = 800, SH = 800, SZ = 1; //画布宽度、画布高度、绘制圆点的直径
-int x, y, lat, lng, status, cnt;
+int x, y, lat, lng, status, speed, cnt;
 String query;
 Date date;
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //用于格式化日期
@@ -30,7 +30,7 @@ void setup() {
     conn.setAutoCommit(false); //设置自动提交为false
     stmt = conn.createStatement(); //新建SQL语句对象并赋值给stmt
 
-    date = sdf.parse("2016-09-14 18:00:00"); //预设开始时间，sdf.parse要求被写在try catch中
+    date = sdf.parse("2016-09-14 23:00:00"); //预设开始时间，sdf.parse要求被写在try catch中
   } 
   catch (Exception e) {
     println(e.getClass().getName() + ": " + e.getMessage());
@@ -49,7 +49,9 @@ void draw() {
     rs = stmt.executeQuery(query);
     while (rs.next()) { //读取数据
       status = rs.getInt("status");
-      if (status == 1) {
+      speed = rs.getInt("speed");
+
+      if (status == 1 && speed > 0) {
         lat = rs.getInt("latitude");
         lng = rs.getInt("longitude");
         y = (int)((NORTH - lat) * SH / HEIGHT); //计算圆点圆心的横纵坐标
@@ -67,7 +69,7 @@ void draw() {
   textSize(24); 
   fill(255);
   text(psdf.format(date) + "    " + "Xiamen Island", 10, 40);
-  text("FPR: "+ frameRate, 660, 40);
+  text("FPS: "+ frameRate, 660, 40);
   text("Taxis: " + cnt, 460, 40);
 
   date = new Date(date.getTime() + 60000); //下一分钟

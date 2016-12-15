@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Post-Disaster Road Damage Visualization</title>
+    <!-- Libraries -->
+    <script src="lib/js/p5.min.js"></script>
+    <script>
+        function setup() {
+            var canvas = createCanvas(800, 800, WEBGL);
+            canvas.parent('canvas_view');
+        }
+
+        function draw() {
+            background(255);
+            fill(200);
+        }
+    </script>
+
+    <body>
+        <div id="container">
+            <div id="banner">
+                <h2>Post-Disaster Road Damage Visualization</h2> </div>
+            <hr/>
+            <div id="content">
+                <div id="map_view">Loading Google Maps...</div>
+                <div id="canvas_view"></div>
+                <div id="data_view" class="col-md-4">Loading data...</div>
+            </div>
+        </div>
+    </body>
+
+</html>
