@@ -1,0 +1,31 @@
+  html,
+  body {
+      height: 100%;
+      margin: 0 50px;
+      padding: 0;
+  }
+  
+  #content {
+      position: relative;
+  }
+  
+  #map_view {
+      width: 800px;
+      height: 800px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+  }
+  
+  #action_view {
+      position: absolute;
+      left: 850px;
+      top: 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 30px;
+      height: 800px;
+  }
+  
+  .alert {
+      display: none;
+  }

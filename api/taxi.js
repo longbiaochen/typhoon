@@ -7,7 +7,7 @@ module.exports = {
     , trajectory: function (request, response) {
         start_time = parseInt(request.query.start_time);
         end_time = start_time + parseInt(request.query.duration);
-        query = "SELECT * FROM trajectory WHERE timestamp >= {0} AND timestamp < {1}".format(start_time, end_time);
+        query = "SELECT * FROM trajectory WHERE timestamp >= {0} AND timestamp < {1} AND status > 0".format(start_time, end_time);
         db.all(query, function (err, rows) {
             response.send(rows);
         });
