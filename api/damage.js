@@ -31,6 +31,10 @@ damage.report = function (request, response) {
         if (docs.length == 0) {
             collection.insertMany([request.body.item], function (err, result) {
                 console.log("Inserted");
+                response.send({
+                    status: "SUCCESS"
+                });
+
             });
         }
         else {
