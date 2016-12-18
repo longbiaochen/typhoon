@@ -38,5 +38,6 @@ app.listen(3000, function () {
     console.log("Starting server at 80...");
     console.log("Initializing databases...");
     taxi.init();
+    damage.init();
     console.log("Server is ready.");
 })
