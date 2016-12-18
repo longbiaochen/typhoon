@@ -1,0 +1,28 @@
+  html,
+  body {
+      height: 100%;
+      margin: 20px;
+      padding: 0;
+  }
+  
+  #content {
+      position: relative;
+  }
+  
+  #map_view {
+      width: 800px;
+      height: 800px;
+  }
+  
+  #canvas_view {
+      position: absolute;
+      left: 0;
+      top: 0;
+  }
+  
+  #data_view {
+      position: absolute;
+      left: 810px;
+      top: 0;
+      font-size: 26px;
+  }
