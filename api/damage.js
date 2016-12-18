@@ -17,8 +17,6 @@ damage.init = function () {
 }
 
 damage.query = function (request, response) {
-    // Get the documents collection
-    // Find some documents
     collection.find().toArray(function (err, docs) {
         response.send(docs);
     });
@@ -42,6 +40,9 @@ damage.report = function (request, response) {
                 $set: request.body.item
             }, function (err, result) {
                 console.log("Updated");
+                response.send({
+                    status: "SUCCESS"
+                });
             });
         }
     });

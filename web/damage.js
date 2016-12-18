@@ -32,9 +32,10 @@ $(function () {
         $.post("/api/damage/report", {
             item: item
         }, function (response) {
-            switch (response) {
+            console.log(response);
+            switch (response.status) {
             case "SUCCESS":
-                $("#success_alert").html("Report success.").slideDown();
+                $("#success_alert").html("Report success.").slideDown().slideUp();
                 break;
             default:
                 $("#error_alert").html("ERROR: " + response).slideDown();
