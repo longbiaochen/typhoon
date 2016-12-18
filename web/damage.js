@@ -71,7 +71,9 @@ function load_damage_data() {
     $.get("/api/damage/query", function (response) {
         DAMAGE_DATA = response;
         $.each(DAMAGE_DATA, function (index, value) {
-            var point = new BMap.Point(value.coordinates[0], value.coordinates[1]);
+            var x = Number(value.coordinates.split(',')[0]);
+            var y = Number(value.coordinates.split(',')[1]);
+            var point = new BMap.Point(x, y);
             var marker = new BMap.Marker(point);
             marker.addEventListener("click", function () {
                 show_damage_info(index);
