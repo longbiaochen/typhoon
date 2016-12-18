@@ -36,6 +36,7 @@ $(function () {
             switch (response.status) {
             case "SUCCESS":
                 $("#success_alert").html("Report success.").slideDown().delay(1500).slideUp();
+                load_damage_data();
                 break;
             default:
                 $("#error_alert").html("ERROR: " + response).slideDown();
@@ -49,11 +50,19 @@ $(function () {
         $.post("/api/damage/delete", {
             damage_id: damage_id
         }, function (response) {
-            alert(response.damage_id);
-            $(".damage-field").each(function (id, field) {
-                $(field).val("");
-            });
-        });
+            switch (response.status) {
+            case "SUCCESS":
+                $(".damage-field").each(function (id, field) {
+                    $(field).val("");
+                });
+                $("#success_alert").html("Delete success.").slideDown().delay(1500).slideUp();
+                load_damage_data();
+                break;
+            default:
+                $("#error_alert").html("ERROR: " + response).slideDown();
+                break;
+            }
+        }, "json");
 
     });
 
@@ -82,8 +91,6 @@ function load_damage_data() {
             MAP.addOverlay(marker);
         });
 
-        //test
-        show_damage_info(1);
     });
 }
 

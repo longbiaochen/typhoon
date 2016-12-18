@@ -58,6 +58,9 @@ damage.delete = function (request, response) {
         "damage_id": request.body.damage_id
     }, function (err, result) {
         console.log("Removed");
+        response.send({
+            status: "SUCCESS"
+        });
     });
 }
 

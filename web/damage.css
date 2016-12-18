@@ -1,12 +1,12 @@
   html,
   body {
-      height: 100%;
-      margin: 0 50px;
+      margin: 0;
       padding: 0;
   }
   
   #content {
       position: relative;
+      margin-bottom: 30px;
   }
   
   #map_view {
@@ -24,6 +24,10 @@
       border-radius: 5px;
       padding: 30px;
       height: 800px;
+  }
+  
+  #footer {
+      text-align: center;
   }
   
   .alert {
