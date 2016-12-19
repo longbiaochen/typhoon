@@ -80,6 +80,7 @@ function init_map() {
 function load_damage_data() {
     $.get("/api/damage/query", function (response) {
         DAMAGE_DATA = response;
+        MAP.clearOverlays();
         $.each(DAMAGE_DATA, function (index, value) {
             var x = Number(value.coordinates.split(',')[0]);
             var y = Number(value.coordinates.split(',')[1]);
