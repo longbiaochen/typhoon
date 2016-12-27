@@ -16,7 +16,8 @@ taxi.init = function () {
 taxi.trajectory = function (request, response) {
     start_time = parseInt(request.query.start_time);
     end_time = start_time + parseInt(request.query.duration);
-    query = "SELECT * FROM trajectory WHERE timestamp >= {0} AND timestamp < {1} AND latitude >= {2} AND latitude <= {3} AND longitude >= {4} AND longitude <= {5}".format(start_time, end_time, request.query.west, request.query.east, request.query.south, request.query.north);
+    query = "SELECT * FROM trajectory INDEXED BY timestamp WHERE timestamp >= {0} AND timestamp < {1} AND LATITUDE BETWEEN {2} AND {3} AND longitude BETWEEN {4} AND {5} AND vehicle = 1064;".format(start_time, end_time, request.query.south, request.query.north, request.query.west, request.query.east);
+    console.log(query);
     db.all(query, function (err, rows) {
         response.send(rows);
     });

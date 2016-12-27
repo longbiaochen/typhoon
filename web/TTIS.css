@@ -9,11 +9,6 @@
       position: relative;
   }
   
-  #map_view {
-      width: 800px;
-      height: 800px;
-  }
-  
   #canvas_view {
       position: absolute;
       left: 0;
