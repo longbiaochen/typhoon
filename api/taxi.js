@@ -9,16 +9,27 @@ var privateFunction = function () {};
 // API functions
 
 taxi.init = function () {
-    db = new sqlite3.Database("taxi.db", sqlite3.OPEN_READONLY);
+    taxi_db = new sqlite3.Database("taxi.db", sqlite3.OPEN_READONLY);
+    behavior_db = new sqlite3.Database("behavior.db", sqlite3.OPEN_READONLY);
     console.log("[taxi]: init complete.");
 };
 
 taxi.trajectory = function (request, response) {
     start_time = parseInt(request.query.start_time);
     end_time = start_time + parseInt(request.query.duration);
-    query = "SELECT * FROM trajectory INDEXED BY timestamp WHERE timestamp >= {0} AND timestamp < {1} AND LATITUDE BETWEEN {2} AND {3} AND longitude BETWEEN {4} AND {5} AND vehicle = 1064;".format(start_time, end_time, request.query.south, request.query.north, request.query.west, request.query.east);
+    query = "SELECT * FROM trajectory INDEXED BY timestamp WHERE timestamp >= {0} AND timestamp < {1} AND latitude BETWEEN {2} AND {3} AND longitude BETWEEN {4} AND {5} AND vehicle = 1000;".format(start_time, end_time, request.query.south, request.query.north, request.query.west, request.query.east);
     console.log(query);
-    db.all(query, function (err, rows) {
+    taxi_db.all(query, function (err, rows) {
+        response.send(rows);
+    });
+}
+
+taxi.behavior = function (request, response) {
+    start_time = parseInt(request.query.start_time);
+    end_time = start_time + parseInt(request.query.duration);
+    query = "SELECT * FROM slow WHERE start_time >= {0} AND start_time < {1} AND vehicle = 1000;".format(start_time, end_time, request.query.south, request.query.north, request.query.west, request.query.east);
+    console.log(query);
+    behavior_db.all(query, function (err, rows) {
         response.send(rows);
     });
 }

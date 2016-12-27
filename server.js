@@ -21,6 +21,10 @@ app.get("/api/taxi/trajectory", function (request, response) {
     taxi.trajectory(request, response);
 });
 
+app.get("/api/taxi/behavior", function (request, response) {
+    taxi.behavior(request, response);
+});
+
 app.get("/api/damage/query", function (request, response) {
     damage.query(request, response);
 });
