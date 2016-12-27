@@ -68,6 +68,15 @@ function draw() {
     //    text("FPS: " + Math.round(frameRate()), 700, 780);
     //    background(0, 10);
     //
+    for (index in BEHAVIOR) {
+        v = BEHAVIOR[index];
+        x = (v.longitude * 1e6 - WEST) / WIDTH * SW;
+        y = (NORTH - v.latitude * 1e6) / HEIGHT * SH;
+        stroke(0, 255, 0, 100);
+        fill(0, 255, 0, 100);
+        ellipse(x, y, 20, 20);
+    }
+
     for (index in DATA) {
         v = DATA[index];
         x = (v.longitude - WEST) / WIDTH * SW;
@@ -88,31 +97,8 @@ function draw() {
             ellipse(xp, yp, 5, 5);
             [b, d, t] = geo(vp, v);
             $("#speed_view").html("{0}deg, {1}m, {2}s<br>".format(Math.round(b), Math.round(d), t, v.status));
-            //            console.log(Math.round(b), Math.round(d), t, v.status);
-            //
-            //            dist = Math.sqrt((yp - y) * (yp - y) + (xp - x) * (xp - x));
-            //            dt = v.timestamp - vp.timestamp;
-            //            $("#speed_view").html("GPS Speed: {0} km/h<br/>Vehicle Speed: {1} km/h".format(dist / dt, v.speed / 10));
-            //            //            } 
-            //            //            d = Math.atan2(vp.latitude - v.latitude, vp.longitude - v.longitude);
-            //            //            dp = DIR[v.vehicle];
-            //            //            DIR[v.vehicle] = d;
-            //            //            ang = abs(d - dp) * 180 / Math.PI;
-            //            //            if (ang > 160 & ang < 200 & v.speed > 0) {
-            //            //                console.log(v.vehicle);
-            //            //                fill(255, 0, 0);
-            //            //                ellipse(xp, yp, 5, 5);
-            //            //    }
+            console.log(Math.round(b), Math.round(d), t, v.status);
         }
-    }
-
-    for (index in BEHAVIOR) {
-        v = BEHAVIOR[index];
-        x = (v.longitude * 1e6 - WEST) / WIDTH * SW;
-        y = (NORTH - v.latitude * 1e6) / HEIGHT * SH;
-        stroke(0, 255, 0, 100);
-        fill(0, 255, 0, 100);
-        ellipse(x, y, 20, 20);
     }
 }
 
@@ -158,7 +144,7 @@ function load_data() {
         west: WEST,
         south: SOUTH
     }, function (response) {
-        console.log(response);
+        //        console.log(response);
         if (response.length) {
             BEHAVIOR = response;
         }
