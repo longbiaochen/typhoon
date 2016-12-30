@@ -36,14 +36,15 @@ function setup() {
 }
 
 function draw() {
-    tint(255, 80);
-    image(img, 0, 0, SIZE, SIZE);
+    //    tint(255, 80);
+    //    image(img, 0, 0, SIZE, SIZE);
+    background(0, 10);
     fill(255);
     var datetime = new Date(START_TIME * 1000);
     text(datetime + "    " + "Xiamen", 10, 30);
-    text("Taxis: " + data.length, 650, 30);
+    text("Taxis: " + data.length / 2, 650, 30);
     text("FPS: " + Math.round(frameRate()), 700, 780);
-    fill(255, 0, 0);
+    fill(255, 0, 0, 20);
     for (index in data) {
         value = data[index];
         x = (value.longitude / 1e6 - WEST + .0047) / WIDTH * SIZE;
@@ -73,13 +74,11 @@ function init_map() {
 
 // data layer =======================================================
 function load_data() {
-    $.get("/api/taxi/trajectory", {
+    $.get("/api/taxi/trajectory_global", {
         start_time: START_TIME,
-        duration: 60
+        duration: 59
     }, function (response) {
         data = response;
-        //        stack.push(data);
-        //        $("#data_view").html(stack.length);
         START_TIME += 60;
         load_data();
     })

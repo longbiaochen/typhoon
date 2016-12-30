@@ -21,6 +21,10 @@ app.get("/api/taxi/trajectory", function (request, response) {
     taxi.trajectory(request, response);
 });
 
+app.get("/api/taxi/trajectory_global", function (request, response) {
+    taxi.trajectory_global(request, response);
+});
+
 app.get("/api/taxi/behavior", function (request, response) {
     taxi.behavior(request, response);
 });

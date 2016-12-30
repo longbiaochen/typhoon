@@ -6,61 +6,63 @@ var privateFunction = function () {};
 var VTHRES = 60, // meters
     TTHRES = 120; // seconds
 
-db = new sqlite3.Database("taxi.db", sqlite3.OPEN_READONLY);
+taxi_db = new sqlite3.Database("taxi.db", sqlite3.OPEN_READONLY);
 console.log("Connected to taxi database.");
 
-db2 = new sqlite3.Database("behavior.db");
+behavior_db = new sqlite3.Database("behavior.db");
 console.log("Connected to behavior database.");
 
-db.all("SELECT vid FROM vid", function (err, rows) {
+behavior_db.run("DELETE FROM slow", function (err) {
+    if (err) {
+        console.log(err);
+        return;
+    }
+});
+
+taxi_db.all("SELECT vid FROM vid", function (err, rows) {
     for (var idx in rows) {
         query = "SELECT * FROM trajectory INDEXED BY vehicle WHERE vehicle = {0} ORDER BY timestamp;".format(rows[idx].vid);
-        console.log(query);
-        db.all(query, function (err, rows) {
-            // for each vehicle
-            var p, sp, ep,
-                b, d, t,
-                r;
-            var inseg = false,
-                pc = 0;
-            sp = ep = rows[0];
-            for (var i = 1; i < rows.length; i++) {
-                p = rows[i];
-                t = p.timestamp - ep.timestamp;
-                if (t < 60) { // filter status change package
-                    continue;
-                }
-                [b, d] = geo(ep, p);
-                //                console.log(Math.round(b), Math.round(d), t, p.status)
-                if (d < VTHRES && t < TTHRES) {
-                    if (inseg) {}
-                    else {
-                        inseg = true;
-                    }
-                    ep = p;
-                    pc += 1;
-                }
-                else {
-                    if (inseg) {
-                        inseg = false;
-                        if (pc > 1) {
-                            r = [sp.vehicle, (sp.latitude + ep.latitude) / 2e6, (sp.longitude + ep.longitude) / 2e6, sp.timestamp, ep.timestamp - sp.timestamp, pc];
-                            console.log(r);
-                            db2.run("INSERT INTO slow VALUES(?,?,?,?,?,?)", r, function (err) {
-                                if (err) {
-                                    console.log(err);
-                                    return;
-                                }
-                            });
-                        }
-                    }
-                    sp = ep = p;
+        taxi_db.serialize(function () {
+            taxi_db.all(query, function (err, rows) {
+                // for each vehicle
+                var p, sp, ep, b, d, t, r;
+                var inseg = false,
                     pc = 0;
+                var stmt = behavior_db.prepare("INSERT INTO slow VALUES(?,?,?,?,?,?)");
+                sp = ep = rows[0];
+                for (var i = 1; i < rows.length; i++) {
+                    p = rows[i];
+                    t = p.timestamp - ep.timestamp;
+                    if (t < 60) { // filter status change package
+                        continue;
+                    }
+                    [b, d] = geo(ep, p);
+                    if (d < VTHRES && t < TTHRES) {
+                        if (inseg) {}
+                        else {
+                            inseg = true;
+                        }
+                        ep = p;
+                        pc += 1;
+                    }
+                    else {
+                        if (inseg) {
+                            inseg = false;
+                            if (pc > 1) {
+                                r = [sp.vehicle, (sp.latitude + ep.latitude) / 2e6, (sp.longitude + ep.longitude) / 2e6, sp.timestamp, ep.timestamp - sp.timestamp, pc];
+                                stmt.run(r);
+                            }
+                        }
+                        sp = ep = p;
+                        pc = 0;
+                    }
                 }
-            }
+                stmt.finalize();
+                console.log("Finished: ", sp.vehicle);
+            });
         });
-        break;
     };
+
 });
 
 // string formatter

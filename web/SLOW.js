@@ -2,14 +2,14 @@ var SW = 800,
     SH = 800,
     DURATION = 60,
     INTERVAL = 200,
-    ZOOM = 14,
+    ZOOM = 13,
     LNGOFFSET = -0.01155,
     LATOFFSET = -0.00320;
 var COORDS = [118.127731, 24.485217],
     NORTH, EAST, WEST, SOUTH,
     WIDTH, HEIGHT;
 var ISPLAYING;
-var START_TIME = new Date('09/01/2016 00:00').getTime() / 1000;
+var START_TIME = new Date('09/15/2016 07:00').getTime() / 1000;
 var MAP;
 var DATA = [],
     DICT = {},
@@ -55,14 +55,10 @@ function setup() {
     //    frameRate(30);
     textAlign(LEFT);
     textSize(24);
-    C1 = color(255, 0, 0);
-    C2 = color(0, 255, 0);
     noLoop();
 }
 
 function draw() {
-    var datetime = new Date(START_TIME * 1000);
-    $("#time_view").html("{0}<br/>{1}".format(datetime, Object.keys(DICT).length));
     //    text(datetime + "    " + "Xiamen", 10, 30);
     //    text("Taxis: " + data.length, 650, 30);
     //    text("FPS: " + Math.round(frameRate()), 700, 780);
@@ -76,33 +72,14 @@ function draw() {
         if (vp) {
             xp = (vp.longitude - WEST) / WIDTH * SW;
             yp = (NORTH - vp.latitude) / HEIGHT * SH;
-            //            //            disp = Math.sqrt((yp - y) * (yp - y) + (xp - x) * (xp - x));
-            //            //            console.log(disp);
-            //            //            if (disp < 30) {
-            //            //            ellipse(x, y, v.speed * 10 / 600, v.speed * 10 / 600);
-            stroke(0, 0, 255, 100);
+            stroke(0, 0, 255, 50);
             line(xp, yp, x, y);
             noStroke();
-            fill(255, 0, 0, 100);
+            fill(0, 255, 0, 50);
             ellipse(x, y, 5, 5);
             ellipse(xp, yp, 5, 5);
             [b, d, t] = geo(vp, v);
-            $("#speed_view").html("{0}deg, {1}m, {2}s<br>".format(Math.round(b), Math.round(d), t, v.status));
-            //            console.log(Math.round(b), Math.round(d), t, v.status);
-            //
-            //            dist = Math.sqrt((yp - y) * (yp - y) + (xp - x) * (xp - x));
-            //            dt = v.timestamp - vp.timestamp;
-            //            $("#speed_view").html("GPS Speed: {0} km/h<br/>Vehicle Speed: {1} km/h".format(dist / dt, v.speed / 10));
-            //            //            } 
-            //            //            d = Math.atan2(vp.latitude - v.latitude, vp.longitude - v.longitude);
-            //            //            dp = DIR[v.vehicle];
-            //            //            DIR[v.vehicle] = d;
-            //            //            ang = abs(d - dp) * 180 / Math.PI;
-            //            //            if (ang > 160 & ang < 200 & v.speed > 0) {
-            //            //                console.log(v.vehicle);
-            //            //                fill(255, 0, 0);
-            //            //                ellipse(xp, yp, 5, 5);
-            //            //    }
+            $("#speed_view").html("{0}deg, {1}m, {2}s, {3}".format(Math.round(b), Math.round(d), t, v.status));
         }
     }
 
@@ -110,8 +87,8 @@ function draw() {
         v = BEHAVIOR[index];
         x = (v.longitude * 1e6 - WEST) / WIDTH * SW;
         y = (NORTH - v.latitude * 1e6) / HEIGHT * SH;
-        stroke(0, 255, 0, 100);
-        fill(0, 255, 0, 100);
+
+        fill(255, 0, 0, 50);
         ellipse(x, y, 20, 20);
     }
 }
@@ -146,8 +123,11 @@ function load_data() {
                 DICT[val['vehicle']] = val;
             });
             DATA = response;
+            draw();
+
         }
-        draw();
+        $("#time_view").html("{0} {1} ".format(new Date(START_TIME * 1000), Object.keys(DICT).length));
+
     });
 
     $.get("/api/taxi/behavior", {
@@ -158,7 +138,7 @@ function load_data() {
         west: WEST,
         south: SOUTH
     }, function (response) {
-        console.log(response);
+        //        console.log(response);
         if (response.length) {
             BEHAVIOR = response;
         }

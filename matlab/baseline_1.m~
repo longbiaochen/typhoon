@@ -1,0 +1,11 @@
+% history based detection method
+
+NE = [118.127983,24.485675]; SW = [118.127462,24.484886];
+
+conn = sqlite('../taxi.db','readonly');
+
+sprintf('SELECT * FROM trajectory WHERE timestamp BETWEEN %dlatitude BETWEEN %d AND %d AND longitude BETWEEN %d AND %d',
+curs = exec(conn,);
+curs = fetch(curs)
+
+
