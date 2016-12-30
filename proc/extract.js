@@ -19,7 +19,7 @@ behavior_db.run("DELETE FROM slow", function (err) {
     }
 });
 
-taxi_db.all("SELECT vid FROM vid", function (err, rows) {
+taxi_db.all("SELECT id FROM vehicle", function (err, rows) {
     for (var idx in rows) {
         query = "SELECT * FROM trajectory INDEXED BY vehicle_index WHERE vehicle = {0} ORDER BY timestamp;".format(rows[idx].vid);
         taxi_db.serialize(function () {
@@ -49,7 +49,7 @@ taxi_db.all("SELECT vid FROM vid", function (err, rows) {
                         if (inseg) {
                             inseg = false;
                             if (pc > 1) {
-                                r = [sp.vehicle, Math.round( (sp.latitude + ep.latitude) / 2), Math.round( (sp.longitude + ep.longitude) / 2), sp.timestamp, ep.timestamp - sp.timestamp, pc];
+                                r = [sp.vehicle, Math.round((sp.latitude + ep.latitude) / 2), Math.round((sp.longitude + ep.longitude) / 2), sp.timestamp, ep.timestamp - sp.timestamp, pc];
                                 stmt.run(r);
                             }
                         }
