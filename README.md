@@ -1,3 +1,3 @@
 # typhoon
 
-test message.
+XMU
