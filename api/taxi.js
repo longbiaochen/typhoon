@@ -9,8 +9,8 @@ var privateFunction = function () {};
 // API functions
 
 taxi.init = function () {
-    taxi_db = new sqlite3.Database("taxi.db", sqlite3.OPEN_READONLY);
-    behavior_db = new sqlite3.Database("behavior.db", sqlite3.OPEN_READONLY);
+    taxi_db = new sqlite3.Database("data/taxi.db", sqlite3.OPEN_READONLY);
+    behavior_db = new sqlite3.Database("data/behavior.db", sqlite3.OPEN_READONLY);
     console.log("[taxi]: init complete.");
 };
 
