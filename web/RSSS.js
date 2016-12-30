@@ -26,8 +26,9 @@ var MN = 0;
 var x0, x1, y0, y1;
 var TRACE;
 
-// entry =========================================================
-$(function () {
+// P5 functions ==================================================
+function setup() {
+
     $("#map_view").css({
         width: CW,
         height: CH
@@ -47,22 +48,6 @@ $(function () {
     };
     Plotly.newPlot('data_view', [TRACE]);
 
-});
-
-// Baidu Map ========================================================
-function init_map() {
-    MAP = new BMap.Map("map_view");
-    var point = new BMap.Point(COORDS[0], COORDS[1]);
-    MAP.centerAndZoom(point, ZOOM);
-    var bounds = MAP.getBounds();
-    NORTH = (bounds.getNorthEast().lat + LATOFFSET) * 1e6, EAST = (bounds.getNorthEast().lng + LNGOFFSET) * 1e6;
-    WEST = (bounds.getSouthWest().lng + LNGOFFSET) * 1e6, SOUTH = (bounds.getSouthWest().lat + LATOFFSET) * 1e6;
-    WIDTH = EAST - WEST, HEIGHT = NORTH - SOUTH;
-    console.log(NORTH, EAST, WEST, SOUTH, WIDTH, HEIGHT);
-}
-
-// P5 functions ==================================================
-function setup() {
     canvas = createCanvas(CW, CH);
     canvas.parent('canvas_view');
     //    frameRate(30);
@@ -72,9 +57,6 @@ function setup() {
     x1 = (BOX[0] - WEST) / WIDTH * CW;
     y0 = (NORTH - BOX[1]) / HEIGHT * CH;
     y1 = (NORTH - BOX[3]) / HEIGHT * CH;
-    noFill();
-    stroke(255, 0, 0);
-    rect(x0, y0, x1 - x0, y1 - y0);
     noLoop();
 }
 
@@ -91,40 +73,10 @@ function draw() {
         x = (v.longitude - WEST) / WIDTH * CW;
         y = (NORTH - v.latitude) / HEIGHT * CH;
         ellipse(x, y, 5, 5);
-
-        //        vp = DICT[v.vehicle];
-        //        if (vp) {
-        //            xp = (vp.longitude - WEST) / WIDTH * CW;
-        //            yp = (NORTH - vp.latitude) / HEIGHT * CH;
-        //            stroke(0, 0, 255, 50);
-        //            line(xp, yp, x, y);
-        //            noStroke();
-        //            fill(0, 255, 0, 50);
-        //            ellipse(x, y, 5, 5);
-        //            ellipse(xp, yp, 5, 5);
-        //                [b, d, t] = geo(vp, v);
-        //            $("#speed_view").html("{0}deg, {1}m, {2}s, {3}".format(Math.round(b), Math.round(d), t, v.status));
-        //        }
     }
-
-    //    background(0, 5);
-    //    for (index in BEHAVIOR) {
-    //        v = BEHAVIOR[index];
-    //        x = (v.longitude * 1e6 - WEST) / WIDTH * CW;
-    //        y = (NORTH - v.latitude * 1e6) / HEIGHT * CH;
-    //        noStroke();
-    //        fill(255, 0, 0, 50);
-    //        ellipse(x, y, 5, 5);
-    //    }
 }
 
-function mousePressed() {
-    ISPLAYING = !ISPLAYING;
-    console.log(ISPLAYING);
-    load_data();
-}
-
-// data layer =======================================================
+// data layer =========================================================
 function load_data() {
     //    
     $.get("/api/taxi/trajectory", {
@@ -136,6 +88,7 @@ function load_data() {
         south: BOX[3]
     }, function (response) {
         if (response.length) {
+            console.log(response.length);
             DATA = response;
             DICT = {};
             $(DATA).each(function (id, val) {
@@ -150,25 +103,25 @@ function load_data() {
             START_TIME += DURATION;
             load_data();
         }
-
     });
-    //
-    //    $.get("/api/taxi/behavior", {
-    //        start_time: START_TIME,
-    //        duration: DURATION,
-    //        north: NORTH,
-    //        east: EAST,
-    //        west: WEST,
-    //        south: SOUTH
-    //    }, function (response) {
-    //        //        console.log(response);
-    //        if (response.length) {
-    //            BEHAVIOR = response;
-    //        }
-    //        draw();
-    //    });
-    //
+}
 
+// Baidu Map ========================================================
+function init_map() {
+    MAP = new BMap.Map("map_view");
+    var point = new BMap.Point(COORDS[0], COORDS[1]);
+    MAP.centerAndZoom(point, ZOOM);
+    var bounds = MAP.getBounds();
+    NORTH = (bounds.getNorthEast().lat + LATOFFSET) * 1e6, EAST = (bounds.getNorthEast().lng + LNGOFFSET) * 1e6;
+    WEST = (bounds.getSouthWest().lng + LNGOFFSET) * 1e6, SOUTH = (bounds.getSouthWest().lat + LATOFFSET) * 1e6;
+    WIDTH = EAST - WEST, HEIGHT = NORTH - SOUTH;
+    console.log(NORTH, EAST, WEST, SOUTH, WIDTH, HEIGHT);
+}
+
+function mousePressed() {
+    ISPLAYING = !ISPLAYING;
+    console.log(ISPLAYING);
+    load_data();
 }
 
 // UTILITIES ========================================================

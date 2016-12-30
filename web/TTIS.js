@@ -127,7 +127,7 @@ function mousePressed() {
 // data layer =======================================================
 function load_data() {
     //    
-    $.get("/api/taxi/behavior", {
+    $.get("/api/taxi/trajectory", {
         start_time: START_TIME,
         duration: DURATION,
         north: BOX[1],
