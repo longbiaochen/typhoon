@@ -14,6 +14,16 @@ taxi.init = function () {
     console.log("[taxi]: init complete.");
 };
 
+taxi.trajectory_one = function (request, response) {
+    start_time = parseInt(request.query.start_time);
+    end_time = start_time + parseInt(request.query.duration) - 1;
+    query = "SELECT * FROM trajectory INDEXED BY indexes WHERE timestamp BETWEEN {0} AND {1} AND latitude BETWEEN {2} AND {3} AND longitude BETWEEN {4} AND {5} AND vehicle = {6};".format(start_time, end_time, request.query.south, request.query.north, request.query.west, request.query.east, request.query.vehicle);
+    console.log(query);
+    taxi_db.all(query, function (err, rows) {
+        response.send(rows);
+    });
+}
+
 taxi.trajectory = function (request, response) {
     start_time = parseInt(request.query.start_time);
     end_time = start_time + parseInt(request.query.duration) - 1;
@@ -38,6 +48,16 @@ taxi.behavior = function (request, response) {
     start_time = parseInt(request.query.start_time);
     end_time = start_time + parseInt(request.query.duration) - 1;
     query = "SELECT * FROM slow INDEXED BY indexes WHERE timestamp BETWEEN {0} AND {1} AND latitude BETWEEN {2} AND {3} AND longitude BETWEEN {4} AND {5};".format(start_time, end_time, request.query.south, request.query.north, request.query.west, request.query.east);
+    console.log(query);
+    behavior_db.all(query, function (err, rows) {
+        response.send(rows);
+    });
+}
+
+taxi.behavior_one = function (request, response) {
+    start_time = parseInt(request.query.start_time);
+    end_time = start_time + parseInt(request.query.duration) - 1;
+    query = "SELECT * FROM slow INDEXED BY indexes WHERE timestamp BETWEEN {0} AND {1} AND latitude BETWEEN {2} AND {3} AND longitude BETWEEN {4} AND {5} AND vehicle = {6};".format(start_time, end_time, request.query.south, request.query.north, request.query.west, request.query.east, request.query.vehicle);
     console.log(query);
     behavior_db.all(query, function (err, rows) {
         response.send(rows);

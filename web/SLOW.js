@@ -85,8 +85,8 @@ function draw() {
 
     for (index in BEHAVIOR) {
         v = BEHAVIOR[index];
-        x = (v.longitude * 1e6 - WEST) / WIDTH * SW;
-        y = (NORTH - v.latitude * 1e6) / HEIGHT * SH;
+        x = (v.longitude - WEST) / WIDTH * SW;
+        y = (NORTH - v.latitude) / HEIGHT * SH;
 
         fill(255, 0, 0, 50);
         ellipse(x, y, 20, 20);
@@ -109,7 +109,8 @@ function mousePressed() {
 
 // data layer =======================================================
 function load_data() {
-    $.get("/api/taxi/trajectory", {
+    $.get("/api/taxi/trajectory_one", {
+        vehicle: 1000,
         start_time: START_TIME,
         duration: DURATION,
         north: NORTH,
@@ -130,7 +131,8 @@ function load_data() {
 
     });
 
-    $.get("/api/taxi/behavior", {
+    $.get("/api/taxi/behavior_one", {
+        vehicle: 1000,
         start_time: START_TIME,
         duration: DURATION,
         north: NORTH,
