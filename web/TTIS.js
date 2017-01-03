@@ -8,7 +8,7 @@ var COORDS = [118.157148, 24.504722],
     BOX = [118.156079, 24.504798, 118.158792, 24.504379],
     NORTH, EAST, WEST, SOUTH,
     WIDTH, HEIGHT;
-var ISPLAYING = true;
+var ISPLAYING = false;
 var START_TIME = new Date('09/12/2016 00:00').getTime() / 1000;
 var MAP;
 var DATA = [],
@@ -115,7 +115,7 @@ function init_map() {
     NORTH = (bounds.getNorthEast().lat + LATOFFSET) * 1e6, EAST = (bounds.getNorthEast().lng + LNGOFFSET) * 1e6;
     WEST = (bounds.getSouthWest().lng + LNGOFFSET) * 1e6, SOUTH = (bounds.getSouthWest().lat + LATOFFSET) * 1e6;
     WIDTH = EAST - WEST, HEIGHT = NORTH - SOUTH;
-    console.log(NORTH, EAST, WEST, SOUTH, WIDTH, HEIGHT);
+    //    console.log(NORTH, EAST, WEST, SOUTH, WIDTH, HEIGHT);
 }
 
 function mousePressed() {

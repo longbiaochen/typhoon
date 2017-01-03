@@ -1,0 +1,41 @@
+  html,
+  body {
+      margin: 0;
+      padding: 0;
+  }
+  
+  #content {
+      position: relative;
+      margin-bottom: 30px;
+  }
+  
+  #canvas_view {
+      position: absolute;
+      left: 15px;
+      top: 0;
+      width: 800px;
+      height: 800px;
+  }
+  
+  #map_view {
+      left: 15px;
+      top: 0;
+      width: 800px;
+      height: 800px;
+  }
+  
+  #info_view {
+      position: absolute;
+      left: 15px;
+      top: 0;
+      font-size: 26px;
+      background-color: aliceblue;
+      opacity: .8;
+      font-size: 18px;
+      text-align: center;
+      width: 800px;
+  }
+  
+  #footer {
+      text-align: center;
+  }

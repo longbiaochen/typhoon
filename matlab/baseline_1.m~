@@ -26,26 +26,31 @@ Nh = ceil(HEIGHT/GRID);
 %%
 clc;
 conn = sqlite('../data/taxi.db','readonly');
-tic;
+
 x = [];
 y = [];
-TS = zeros(Nh,Nw,Nt); % TRAFFIC SNAPSHOT
+TRAFFIC_SNAPSHOT = zeros(Nt,Nw,Nh);
 t = 1; cnt = 1;
 for timestamp = START_TIME:DURATION:END_TIME
     query = sprintf('SELECT * FROM trajectory INDEXED BY indexes WHERE timestamp BETWEEN %d AND %d AND latitude BETWEEN %d AND %d AND longitude BETWEEN %d AND %d',...
             timestamp, timestamp + DURATION - 1,SOUTH,NORTH,WEST,EAST);
     results = fetch(conn,query);
     for i = 1:size(results,1)
-        w = ceil(double(results{i,5} - WEST)/(EAST - WEST)*Nw);
-        h = ceil(double(NORTH - results{i,4})/(NORTH - SOUTH)*Nh);
-        TS(h,w,t) = TS(h,w,t) + 1;
+        w = float((results{i,5} - WEST))/(EAST - WEST)*Nw;
+        h = float((NORTH - results{i,4}))/(NORTH - SOUTH)*Nh;
+        try
+            TRAFFIC_SNAPSHOT(t,w,h) = TRAFFIC_SNAPSHOT(t,w,h) + 1;
+        catch
+            [t,w,h]
+            cnt = cnt + 1;
+        end
     end
     t = t + 1;
     break;
 end
-toc;
 
 %%
-ts = squeeze(TS(:,:,1));
-imagesc(ts);
+plot(y);
 
+
+%%
