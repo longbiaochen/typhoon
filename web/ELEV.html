@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ELEV</title>
+    <!-- Libraries -->
+    <link href="lib/css/bootstrap.min.css" rel="stylesheet">
+    <script src="lib/js/jquery-3.1.1.min.js"></script>
+    <script src="lib/js/bootstrap.min.js"></script>
+    <script src="lib/js/p5.min.js"></script>
+    <script src="lib/js/plotly.js"></script>
+    <script src="lib/js/map_style.js"></script>
+    <script src="ELEV.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA676X6MxO6WGnm7CTBCgMq7j7ok-8-5wY"></script>
+    <link href="ELEV.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container" id="banner">
+            <h2>Elevation Level Viewer (ELEV)</h2>
+        </div>
+    </nav>
+    <div class="container" id="content">
+        <div id="map_view"></div>
+        <div id="canvas_view"></div>
+        <div id="info_view">
+            <div id="time_view"></div>
+            <div id="speed_view"></div>
+        </div>
+        <div id="data_view"></div>
+    </div>
+    <nav class="navbar navbar-default">
+        <div class="container" id="footer">
+            <h5><a href="http://scsc.xmu.edu.cn" target="_blank">&copy; 2016 Fujian Key Laboratory of Sensing and Computing for Smart City, Xiamen University</a></h5>
+        </div>
+    </nav>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WEIBO</title>
+    <!-- Libraries -->
+    <link href="lib/css/bootstrap.min.css" rel="stylesheet">
+    <script src="lib/js/jquery-3.1.1.min.js"></script>
+    <script src="lib/js/bootstrap.min.js"></script>
+    <script src="lib/js/p5.min.js"></script>
+    <script src="lib/js/plotly.js"></script>
+    <script src="lib/js/map_style.js"></script>
+    <script src="lib/js/coordtransform.js"></script>
+    <script src="WEIBO.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJmAV5ZWLh1kVz3sCevLMtGH0aohLDEFg">
+    </script>
+    <link href="WEIBO.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container" id="banner">
+            <h2>WEIBO</h2>
+        </div>
+    </nav>
+    <div class="container" id="content">
+        <div id="map_view"></div>
+        <div id="action_view">
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" id="load_btn">Load</button>
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success" id="clear">Clear</button>
+                </div>
+            </div>
+        </div>
+        <div id="data_view"></div>
+    </div>
+    <nav class="navbar navbar-default">
+        <div class="container" id="footer">
+            <h5><a href="http://scsc.xmu.edu.cn" target="_blank">&copy; 2016 Fujian Key Laboratory of Sensing and Computing for Smart City, Xiamen University</a></h5>
+        </div>
+    </nav>
+</body>
+
+</html>

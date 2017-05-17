@@ -1,4 +1,6 @@
 var sqlite3 = require('sqlite3').verbose();
+var jBinary = require('jbinary');
+var MAT = require('jMatFile');
 
 var taxi = {};
 
@@ -61,6 +63,14 @@ taxi.behavior_one = function (request, response) {
     console.log(query);
     behavior_db.all(query, function (err, rows) {
         response.send(rows);
+    });
+}
+
+taxi.grid = function (request, response) {
+    console.log("here");
+    jBinary.load('matlab/TS.mat', MAT).then(function (binary) {
+        var mat = binary.read('TS');
+        response.send(mat);
     });
 }
 

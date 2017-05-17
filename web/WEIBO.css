@@ -1,0 +1,35 @@
+  html,
+  body {
+      margin: 0;
+      padding: 0;
+  }
+  
+  #content {
+      position: relative;
+      margin-bottom: 30px;
+  }
+  
+  #canvas_view {
+      position: absolute;
+      left: 15px;
+      top: 0;
+      width: 800px;
+      height: 800px;
+  }
+  
+  #map_view {
+      left: 0;
+      top: 0;
+      width: 800px;
+      height: 800px;
+  }
+  
+  #action_view {
+      position: absolute;
+      left: 840px;
+      top: 0;
+  }
+  
+  #footer {
+      text-align: center;
+  }
