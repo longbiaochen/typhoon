@@ -74,7 +74,7 @@ app.post("/api/damage/delete", function (request, response) {
 
 // run the server
 app.listen(3000, function () {
-    console.log("Starting server at 80...");
+    console.log("Starting server at 3000...");
     console.log("Initializing databases...");
     taxi.init();
     damage.init();

@@ -1,3 +1,0 @@
-# typhoon
-
-XMU
