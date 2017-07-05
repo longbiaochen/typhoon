@@ -19,9 +19,8 @@
   - END_TIME = 1473609540; (2016/09/30 12:59:59)
 
 ## 常用转换代码
-- Matlab时间转换
-    ```
-    START_TIME = posixtime(datetime('09/05/2016 00:00','TimeZone','local','InputFormat','MM/dd/uuuu HH:mm')); 
-    END_TIME = posixtime(datetime('09/05/2016 00:59','TimeZone','local','InputFormat','MM/dd/uuuu HH:mm'));
-    ```
-- test
+- Matlab时间转换：
+  ```matlab
+  START_TIME = posixtime(datetime('09/05/2016 00:00','TimeZone','local','InputFormat','MM/dd/uuuu HH:mm')); 
+  END_TIME = posixtime(datetime('09/05/2016 00:59','TimeZone','local','InputFormat','MM/dd/uuuu HH:mm'));
+  ```
