@@ -1,0 +1,12 @@
+﻿  test_use_sqlite.cpp
+test_use_sqlite.cpp(41): warning C4244: “参数”: 从“std::streamoff”转换到“int”，可能丢失数据
+test_use_sqlite.cpp(85): warning C4477: “printf”: 格式字符串“%lu”需要类型“unsigned long”的参数，但可变参数 1 拥有了类型“time_t”
+  test_use_sqlite.cpp(85): note: 请考虑在格式字符串中使用“%llu”
+  test_use_sqlite.cpp(85): note: 请考虑在格式字符串中使用“%I64u”
+  正在生成代码
+  1 of 131 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  test_use_sqlite.vcxproj -> C:\Users\pc3\Desktop\test_use_sqlite\test_use_sqlite\Release\test_use_sqlite.exe
+  test_use_sqlite.vcxproj -> C:\Users\pc3\Desktop\test_use_sqlite\test_use_sqlite\Release\test_use_sqlite.pdb (Full PDB)
