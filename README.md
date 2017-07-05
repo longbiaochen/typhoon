@@ -20,7 +20,7 @@
 
 ## 常用转换代码
 - Matlab时间转换：
-  ```matlab
+  ```
   START_TIME = posixtime(datetime('09/05/2016 00:00','TimeZone','local','InputFormat','MM/dd/uuuu HH:mm')); 
   END_TIME = posixtime(datetime('09/05/2016 00:59','TimeZone','local','InputFormat','MM/dd/uuuu HH:mm'));
   ```
