@@ -8,11 +8,12 @@
 - GPS定位精度：10m https://zh.wikipedia.org/wiki/全球定位系统
 
 ## 约定常数
-- 厦门岛内GPS范围[Top, Bottom, Right, Left]： 
+- 厦门岛内GPS范围 [Top, Bottom, Right, Left]： 
   - T = 24.561485
   - B = 24.423250
   - R = 118.198504
   - L = 118.064743
+- GPS中心点：CENTER = [24.484665, 118.116961]
 - 起止时间戳：
   - START_TIME = 1473868800; (2016/09/01 00:00:00)
   - END_TIME = 1473609540; (2016/09/30 12:59:59)
