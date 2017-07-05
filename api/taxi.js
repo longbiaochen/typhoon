@@ -39,7 +39,7 @@ taxi.trajectory = function (request, response) {
 taxi.trajectory_global = function (request, response) {
     start_time = parseInt(request.query.start_time);
     end_time = start_time + parseInt(request.query.duration) - 1;
-    query = "SELECT * FROM trajectory INDEXED BY indexes WHERE BETWEEN {0} AND {1};".format(start_time, end_time);
+    query = "SELECT * FROM trajectory INDEXED BY indexes WHERE timestamp BETWEEN {0} AND {1};".format(start_time, end_time);
     console.log(query);
     taxi_db.all(query, function (err, rows) {
         response.send(rows);

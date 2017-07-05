@@ -7,7 +7,7 @@ var WIDTH = EAST - WEST,
     CENTER = (EAST + WEST) / 2,
     MIDDLE = (NORTH + SOUTH) / 2;
 var SIZE = 800;
-var START_TIME = new Date('09/01/2016 07:00').getTime() / 1000;
+var START_TIME = new Date('09/15/2016 00:00').getTime() / 1000;
 var data = [];
 var canvas;
 var index, value;
@@ -79,7 +79,7 @@ function load_data() {
         duration: 59
     }, function (response) {
         data = response;
-        START_TIME += 60;
+        START_TIME += 600;
         load_data();
     })
 }

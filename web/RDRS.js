@@ -151,6 +151,7 @@ function show_damage_info(index) {
     $("#damage_link").attr('href', '/street_views/{0}.png'.format(damage_id));
 }
 
+// not used any more
 function update_coordinates() {
     var bd09 = $("#coordinates").val().split(",");
     var gcj02 = coordtransform.bd09togcj02(bd09[0], bd09[1]);
